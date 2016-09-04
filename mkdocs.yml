@@ -1,0 +1,29 @@
+site_name: Moloquent
+site_description: A MongoDB based Eloquent model and Query builder for Laravel (Moloquent)
+
+repo_url: https://github.com/moloquent
+repo_name: Moloquent
+
+remote_name: deploy
+remote_branch: master
+
+google_analytics: ['UA-83645466-1','moloquent.github.io']
+
+theme_dir: theme
+
+markdown_extensions:
+    - toc:
+        permalink: "#"
+    - admonition:
+
+pages:
+
+- Master:
+  - Home: master/index.md
+  - Installation: master/installation.md
+  - Configuration: master/configuration.md
+  - Eloquent: master/eloquent.md
+  - Query Builder: master/builder.md
+  - Schema: master/schema.md
+  - Extensions: master/extensions.md
+  - Usage: master/usage.md
