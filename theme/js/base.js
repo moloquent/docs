@@ -36,6 +36,7 @@ $( document ).ready(function() {
 
 $('body').scrollspy({
     target: '.bs-sidebar',
+    // offset: 70,
 });
 
 /* Toggle the `clicky` class on the body when clicking links to let us
@@ -50,4 +51,6 @@ $("li.disabled a").click(function() {
 });
 
 
+/* Scrollbars */
+$(".nano").nanoScroller();
 

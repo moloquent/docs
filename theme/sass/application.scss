@@ -3,6 +3,7 @@
 @import "paper";
 @import "font-awesome";
 @import "highlight";
+@import "nanoscroller";
 
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic");
 @import url('https://fonts.googleapis.com/css?family=Miriam+Libre:400,700|Source+Sans+Pro:200,400,700,600,400italic,700italic');
@@ -12,7 +13,7 @@ html {
 }
 
 body {
-  padding-top: 75px;
+  padding-top: 80px;
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -101,13 +102,11 @@ a > code:hover, a > code:focus {
  * sections of docs content.
  */
 
-/* By default it's not affixed in mobile views, so undo that */
-.bs-sidebar.affix {
+.bs-sidebar{
   position: static;
-}
-
-.bs-sidebar.well {
   padding: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* First level of nav */
@@ -116,6 +115,7 @@ a > code:hover, a > code:focus {
   margin-bottom: 30px;
   padding-top:    10px;
   padding-bottom: 10px;
+  padding-right: 15px;
   border-radius: 5px;
 }
 
@@ -128,14 +128,16 @@ a > code:hover, a > code:focus {
 .bs-sidebar .nav > li > a:hover,
 .bs-sidebar .nav > li > a:focus {
   text-decoration: none;
-  border-right: 1px solid;
+  border-left: 1px solid;
+  color:#ef1f17;
 }
 .bs-sidebar .nav > .active > a,
 .bs-sidebar .nav > .active:hover > a,
 .bs-sidebar .nav > .active:focus > a {
   font-weight: bold;
   background-color: transparent;
-  border-right: 1px solid;
+  border-left: 1px solid;
+  color:#ef1f17;
 }
 
 /* Nav: second level (shown on .active) */
@@ -232,4 +234,10 @@ h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .head
   box-shadow: none;
   margin-top: 15px;
   text-transform: initial;
+}
+
+pre {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 5px;
 }

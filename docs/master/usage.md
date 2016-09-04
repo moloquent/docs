@@ -1,39 +1,36 @@
-Usage
---------
-
 ### Basic Usage
 
-**Retrieving All Models**
+#### Retrieving All Models
 
 ```php
 $users = User::all();
 ```
 
-**Retrieving A Record By Primary Key**
+#### Retrieving A Record By Primary Key
 
 ```php
 $user = User::find('517c43667db388101e00000f');
 ```
 
-**Wheres**
+### Wheres
 
 ```php
 $users = User::where('votes', '>', 100)->take(10)->get();
 ```
 
-**Or Statements**
+#### Or Statements
 
 ```php
 $users = User::where('votes', '>', 100)->orWhere('name', 'John')->get();
 ```
 
-**And Statements**
+#### And Statements
 
 ```php
 $users = User::where('votes', '>', 100)->where('name', '=', 'John')->get();
 ```
 
-**Using Where In With An Array**
+#### Where In With An Array
 
 ```php
 $users = User::whereIn('age', [16, 18, 20])->get();
@@ -41,31 +38,48 @@ $users = User::whereIn('age', [16, 18, 20])->get();
 
 When using `whereNotIn` objects will be returned if the field is non existent. Combine with `whereNotNull('age')` to leave out those documents.
 
-**Using Where Between**
+#### Where Between
 
 ```php
 $users = User::whereBetween('votes', [1, 100])->get();
 ```
 
-**Where null**
+#### Where null
 
 ```php
 $users = User::whereNull('updated_at')->get();
 ```
 
-**Order By**
+#### Where Like
+
+```php
+$user = Comment::where('body', 'like', '%spam%')->get();
+```
+
+#### Advanced Wheres
+
+```php
+$users = User::where('name', '=', 'John')->orWhere(function($query)
+    {
+        $query->where('votes', '>', 100)
+              ->where('title', '<>', 'Admin');
+    })
+    ->get();
+```
+
+### Order By
 
 ```php
 $users = User::orderBy('name', 'desc')->get();
 ```
 
-**Offset & Limit**
+### Offset & Limit
 
 ```php
 $users = User::skip(10)->take(5)->get();
 ```
 
-**Distinct**
+### Distinct
 
 Distinct requires a field for which to return the distinct values.
 
@@ -81,18 +95,7 @@ Distinct can be combined with **where**:
 $users = User::where('active', true)->distinct('name')->get();
 ```
 
-**Advanced Wheres**
-
-```php
-$users = User::where('name', '=', 'John')->orWhere(function($query)
-    {
-        $query->where('votes', '>', 100)
-              ->where('title', '<>', 'Admin');
-    })
-    ->get();
-```
-
-**Group By**
+### Group By
 
 Selected columns that are not grouped will be aggregated with the $last function.
 
@@ -100,9 +103,7 @@ Selected columns that are not grouped will be aggregated with the $last function
 $users = Users::groupBy('title')->get(['title', 'name']);
 ```
 
-**Aggregation**
-
-*Aggregations are only available for MongoDB versions greater than 2.2.*
+### Aggregation
 
 ```php
 $total = Order::count();
@@ -118,13 +119,8 @@ Aggregations can be combined with **where**:
 $sold = Orders::where('sold', true)->sum('price');
 ```
 
-**Like**
 
-```php
-$user = Comment::where('body', 'like', '%spam%')->get();
-```
-
-**Incrementing or decrementing a value of a column**
+### Incrementing or decrementing
 
 Perform increments or decrements (default 1) on specified attributes:
 
@@ -146,12 +142,12 @@ User::where('age', '29')->increment('age', 1, ['group' => 'thirty something']);
 User::where('bmi', 30)->decrement('bmi', 1, ['category' => 'overweight']);
 ```
 
-**Soft deleting**
+### Soft deleting
 
 When soft deleting a model, it is not actually removed from your database. Instead, a deleted_at timestamp is set on the record. To enable soft deletes for a model, apply the SoftDeletingTrait to the model:
 
 ```php
-use Jenssegers\Mongodb\Eloquent\SoftDeletes;
+use Moloquent\Eloquent\SoftDeletes;
 
 class User extends Eloquent {
 
@@ -166,7 +162,7 @@ For more information check http://laravel.com/docs/eloquent#soft-deleting
 
 ### MongoDB specific operators
 
-**Exists**
+#### Exists
 
 Matches documents that have the specified field.
 
@@ -174,7 +170,7 @@ Matches documents that have the specified field.
 User::where('age', 'exists', true)->get();
 ```
 
-**All**
+#### All
 
 Matches arrays that contain all elements specified in the query.
 
@@ -182,7 +178,7 @@ Matches arrays that contain all elements specified in the query.
 User::where('roles', 'all', ['moderator', 'author'])->get();
 ```
 
-**Size**
+#### Size
 
 Selects documents if the array field is a specified size.
 
@@ -190,7 +186,7 @@ Selects documents if the array field is a specified size.
 User::where('tags', 'size', 3)->get();
 ```
 
-**Regex**
+#### Regex
 
 Selects documents where values match a specified regular expression.
 
@@ -210,7 +206,7 @@ And the inverse:
 User::where('name', 'not regexp', '/.*doe/i'))->get();
 ```
 
-**Type**
+#### Type
 
 Selects documents if a field is of the specified type. For more information check: http://docs.mongodb.org/manual/reference/operator/query/type/#op._S_type
 
@@ -218,7 +214,7 @@ Selects documents if a field is of the specified type. For more information chec
 User::where('age', 'type', 2)->get();
 ```
 
-**Mod**
+#### Mod
 
 Performs a modulo operation on the value of a field and selects documents with a specified result.
 
@@ -226,7 +222,7 @@ Performs a modulo operation on the value of a field and selects documents with a
 User::where('age', 'mod', [10, 0])->get();
 ```
 
-**Where**
+#### Where
 
 Matches documents that satisfy a JavaScript expression. For more information check http://docs.mongodb.org/manual/reference/operator/query/where/#op._S_where
 
@@ -234,7 +230,7 @@ Matches documents that satisfy a JavaScript expression. For more information che
 
 Inserting, updating and deleting records works just like the original Eloquent.
 
-**Saving a new model**
+#### Saving a new model
 
 ```php
 $user = new User;
@@ -248,7 +244,7 @@ You may also use the create method to save a new model in a single line:
 User::create(['name' => 'John']);
 ```
 
-**Updating a model**
+#### Updating a model
 
 To update a model, you may retrieve it, change an attribute, and use the save method.
 
@@ -258,9 +254,9 @@ $user->email = 'john@foo.com';
 $user->save();
 ```
 
-*There is also support for upsert operations, check https://github.com/jenssegers/laravel-mongodb#mongodb-specific-operations*
+*There is also support for upsert operations*
 
-**Deleting a model**
+#### Deleting a model
 
 To delete a model, simply call the delete method on the instance:
 
@@ -358,7 +354,7 @@ class User extends Eloquent {
 
 Other relations are not yet supported, but may be added in the future. Read more about these relations on http://laravel.com/docs/eloquent#relationships
 
-### EmbedsMany Relations
+#### EmbedsMany Relations
 
 If you want to embed models, rather than referencing them, you can use the `embedsMany` relation. This relation is similar to the `hasMany` relation, but embeds the models inside the parent object.
 
@@ -437,7 +433,7 @@ return $this->embedsMany('Book', 'local_key');
 
 Embedded relations will return a Collection of embedded items instead of a query builder. Check out the available operations here: https://laravel.com/docs/master/collections
 
-### EmbedsOne Relations
+#### EmbedsOne Relations
 
 The embedsOne relation is similar to the EmbedsMany relation, but only embeds a single model.
 
@@ -488,7 +484,7 @@ $newAuthor = new Author(['name' => 'Jane Doe']);
 $book->author()->save($newAuthor);
 ```
 
-### MySQL Relations
+#### MySQL Relations
 
 If you're using a hybrid MongoDB and SQL setup, you're in luck! The model will automatically return a MongoDB- or SQL-relation based on the type of the related model. Of course, if you want this functionality to work both ways, your SQL-models will need use the `Jenssegers\Mongodb\Eloquent\HybridRelations` trait. Note that this functionality only works for hasOne, hasMany and belongsTo relations.
 
@@ -528,7 +524,7 @@ class Message extends Eloquent {
 }
 ```
 
-### Raw Expressions
+#### Raw Expressions
 
 These expressions will be injected directly into the query.
 
@@ -567,7 +563,7 @@ $db = DB::getMongoDB();
 
 ### MongoDB specific operations
 
-**Cursor timeout**
+#### Cursor timeout
 
 To prevent MongoCursorTimeout exceptions, you can manually set a timeout value that will be applied to the cursor:
 
@@ -575,7 +571,7 @@ To prevent MongoCursorTimeout exceptions, you can manually set a timeout value t
 DB::collection('users')->timeout(-1)->get();
 ```
 
-**Upsert**
+#### Upsert
 
 Update or insert a document. Additional options for the update method are passed directly to the native update method.
 
@@ -584,7 +580,7 @@ DB::collection('users')->where('name', 'John')
                        ->update($data, ['upsert' => true]);
 ```
 
-**Projections**
+#### Projections
 
 You can apply projections to your queries using the `project` method.
 
@@ -592,7 +588,7 @@ You can apply projections to your queries using the `project` method.
 DB::collection('items')->project(['tags' => array('$slice' => 1]))->get();
 ```
 
-**Projections with Pagination**
+#### Projections with Pagination
 
 ```php
 $limit = 25;
@@ -601,7 +597,7 @@ DB::collection('items')->paginate($limit, $projections);
 ```
 
 
-**Push**
+#### Push
 
 Add an items to an array.
 
@@ -616,7 +612,7 @@ If you don't want duplicate items, set the third parameter to `true`:
 DB::collection('users')->where('name', 'John')->push('items', 'boots', true);
 ```
 
-**Pull**
+#### Pull
 
 Remove an item from an array.
 
@@ -625,7 +621,7 @@ DB::collection('users')->where('name', 'John')->pull('items', 'boots');
 DB::collection('users')->where('name', 'John')->pull('messages', ['from' => 'Jane Doe', 'message' => 'Hi John']);
 ```
 
-**Unset**
+#### Unset
 
 Remove one or more fields from a document.
 

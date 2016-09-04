@@ -1,36 +1,33 @@
 Installation
 ------------
 
-Make sure you have the MongoDB PHP driver installed. You can find installation instructions at http://php.net/manual/en/mongodb.installation.php
-
-**WARNING**: The old mongo PHP driver is not supported anymore in versions >= 3.0.
+Make sure you have the MongoDB PHP driver installed.
+You can find installation instructions at http://php.net/manual/en/mongodb.installation.php.
 
 Installation using composer:
 
-```
-composer require jenssegers/mongodb
+```bash
+composer require moloquent/moloquent
 ```
 
 ### Laravel version Compatibility
 
  Laravel  | Package
 :---------|:----------
- 4.2.x    | 2.0.x
- 5.0.x    | 2.1.x
- 5.1.x    | 2.2.x or 3.0.x
- 5.2.x    | 2.3.x or 3.0.x
- 5.3.x    | 3.1.x
+ 5.1.x    | >= 3.0
+ 5.2.x    | >= 3.0
+ 5.3.x    | >= 3.1
 
 And add the service provider in `config/app.php`:
 
 ```php
-Jenssegers\Mongodb\MongodbServiceProvider::class,
+Moloquent\MongodbServiceProvider::class,
 ```
 
 For usage with [Lumen](http://lumen.laravel.com), add the service provider in `bootstrap/app.php`. In this file, you will also need to enable Eloquent. You must however ensure that your call to `$app->withEloquent();` is **below** where you have registered the `MongodbServiceProvider`:
 
 ```php
-$app->register('Jenssegers\Mongodb\MongodbServiceProvider');
+$app->register('Moloquent\MongodbServiceProvider');
 
 $app->withEloquent();
 ```
@@ -42,42 +39,45 @@ For usage outside Laravel, check out the [Capsule manager](https://github.com/il
 ```php
 $capsule->getDatabaseManager()->extend('mongodb', function($config)
 {
-    return new Jenssegers\Mongodb\Connection($config);
+    return new \Moloquent\Connection($config);
 });
 ```
 
+Configuration
+-------------
 
-Upgrading
----------
-
-#### Upgrading from version 2 to 3
-
-In this new major release which supports the new mongodb PHP extension, we also moved the location of the Model class and replaced the MySQL model class with a trait.
-
-Please change all `Jenssegers\Mongodb\Model` references to `Jenssegers\Mongodb\Eloquent\Model` either at the top of your model files, or your registered alias.
+Change your default database connection name in `app/config/database.php`:
 
 ```php
-use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
-
-class User extends Eloquent {}
+'default' => env('DB_CONNECTION', 'mongodb'),
 ```
 
-If you are using hybrid relations, your MySQL classes should now extend the original Eloquent model class `Illuminate\Database\Eloquent\Model` instead of the removed `Jenssegers\Eloquent\Model`. Instead use the new `Jenssegers\Mongodb\Eloquent\HybridRelations` trait. This should make things more clear as there is only one single model class in this package.
+And add a new mongodb connection:
 
 ```php
-use Jenssegers\Mongodb\Eloquent\HybridRelations;
-
-class User extends Eloquent {
-
-    use HybridRelations;
-
-    protected $connection = 'mysql';
-
-}
+'mongodb' => [
+    'driver'   => 'mongodb',
+    'host'     => env('DB_HOST', 'localhost'),
+    'port'     => env('DB_PORT', 27017),
+    'database' => env('DB_DATABASE'),
+    'username' => env('DB_USERNAME'),
+    'password' => env('DB_PASSWORD'),
+    'options' => [
+        'database' => 'admin' // sets the authentication database required by mongo 3
+    ]
+],
 ```
 
-Embedded relations now return an `Illuminate\Database\Eloquent\Collection` rather than a custom Collection class. If you were using one of the special methods that were available, convert them to Collection operations.
+You can connect to multiple servers or replica sets with the following configuration:
 
 ```php
-$books = $user->books()->sortBy('title');
+'mongodb' => [
+    'driver'   => 'mongodb',
+    'host'     => ['server1', 'server2'],
+    'port'     => env('DB_PORT', 27017),
+    'database' => env('DB_DATABASE'),
+    'username' => env('DB_USERNAME'),
+    'password' => env('DB_PASSWORD'),
+    'options'  => ['replicaSet' => 'replicaSetName']
+],
 ```

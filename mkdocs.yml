@@ -1,8 +1,8 @@
 site_name: Moloquent
+site_url: https://moloquent.github.io
 site_description: A MongoDB based Eloquent model and Query builder for Laravel (Moloquent)
 
 repo_url: https://github.com/moloquent
-repo_name: Moloquent
 
 remote_name: deploy
 remote_branch: master
@@ -19,9 +19,8 @@ markdown_extensions:
 pages:
 
 - Master:
-  - Home: master/index.md
+  - Moloquent: master/index.md
   - Installation: master/installation.md
-  - Configuration: master/configuration.md
   - Eloquent: master/eloquent.md
   - Query Builder: master/builder.md
   - Schema: master/schema.md
