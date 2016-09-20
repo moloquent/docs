@@ -18,9 +18,17 @@ body {
   flex-direction: column;
 }
 
-.navbar {
-  background: url(../img/cloud-bar.png) repeat-x #fff fixed;
-  padding-top: 10px;
+//.navbar {
+//  background: url(../img/cloud-bar.png) repeat-x #fff fixed;
+//  padding-top: 10px;
+//}
+
+.navbar-brand {
+
+  &::first-letter{
+    color:#ef1f17 !important;
+  }
+
 }
 
 #content {

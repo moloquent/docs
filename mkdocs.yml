@@ -19,18 +19,7 @@ markdown_extensions:
 pages:
 
 - Master:
-  - Welcome: master/index.md
-  - Installation: master/installation.md
-  - Eloquent: master/eloquent.md
-  - Query Builder: master/builder.md
-  - Schema: master/schema.md
-  - Extensions:
-    - Auth: master/extensions/auth.md
-    - Queues: master/extensions/queue.md
-    - Sentry: master/extensions/sentry.md
-    - Session: master/extensions/session.md
-  - Usage:
-    - Basic: master/usage/basic.md
-    - Advanced: master/usage/advanced.md
-    - Relations: master/usage/relations.md
-    - MongoDB specific: master/usage/mongodb.md
+  - Getting Started: master/index.md
+  - Basic Usage: master/basic.md
+  - Advanced: master/advanced.md
+  - Relations: master/relations.md

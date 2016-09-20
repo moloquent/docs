@@ -1,3 +1,5 @@
+### Relations
+
 Supported relations are:
 
  - hasOne
@@ -185,7 +187,7 @@ $newAuthor = new Author(['name' => 'Jane Doe']);
 $book->author()->save($newAuthor);
 ```
 
-#### MySQL Relations
+### MySQL Relations
 
 If you're using a hybrid MongoDB and SQL setup, you're in luck! The model will automatically return a MongoDB- or SQL-relation based on the type of the related model. Of course, if you want this functionality to work both ways, your SQL-models will need use the `Moloquent\Eloquent\HybridRelations` trait. Note that this functionality only works for hasOne, hasMany and belongsTo relations.
 
