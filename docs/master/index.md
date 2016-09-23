@@ -106,7 +106,7 @@ This service provider will slightly modify the internal DatabaseReminderReposito
 Queues
 ------
 
-And add the service provider in `config/app.php`: 
+Add the service provider in `config/app.php`: 
 
 ```php
 Moloquent\MongodbQueueServiceProvider::class,
@@ -133,9 +133,10 @@ If you want to use MongoDB to handle failed jobs, change the database in `config
     ],
 ```
 
-Sessions
---------
+Passport
+---------
+In order to use laravel passport with your models, add `PassportServiceProvider` service provider in `config/app.php`: 
 
-**THIS IS A WORK IN PROGRESS**  
-The MongoDB session driver is available in a separate package,
-check out [Laravel-MongoDB-Session](https://github.com/jenssegers/Laravel-MongoDB-Session)
+```php
+Moloquent\Passport\PassportServiceProvider::class,
+```
