@@ -9,10 +9,15 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
 
 .navbar {
   border: none;
-  border-bottom: 1px solid rgba(0,0,0,.2);
+  box-shadow: 0 2px 2px rgba(0,0,0,.03),0 1px 0 rgba(0,0,0,.03);
+  font-family: "Miriam Libre","Source Sans Pro",sans-serif;
 
   &-brand {
     font-size: 24px;
+  }
+
+  .nav li {
+    font-size: 1.3rem;
   }
 
   &-inverse {

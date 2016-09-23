@@ -18,21 +18,13 @@ body {
   flex-direction: column;
 }
 
-//.navbar {
-//  background: url(../img/cloud-bar.png) repeat-x #fff fixed;
-//  padding-top: 10px;
-//}
-
 .navbar-brand {
-
-  &::first-letter{
-    color:#ef1f17 !important;
-  }
-
+  text-shadow: 1px 1px #babaaa;
 }
 
 #content {
   flex: 1;
+  padding-top: 20px;
 }
 
 :target::before {
@@ -82,18 +74,6 @@ div.col-md-9 img {
   max-width: 100%;
 }
 
-code {
-  padding: 1px 3px;
-  background: #f5f5f5;
-  border: solid 1px #ccc;
-  color: #333;
-}
-
-pre code {
-  background: transparent;
-  border: none;
-}
-
 a > code {
   color: #007fff;
 }
@@ -123,7 +103,8 @@ a > code:hover, a > code:focus {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-right: 15px;
-  border-radius: 5px;
+  border-radius: 0;
+  border-right: 1px dashed #ababab;
 }
 
 /* All levels of nav */
@@ -195,9 +176,9 @@ a > code:hover, a > code:focus {
 }
 
 .headerlink {
-  visibility: hidden;
-  padding-left: .5em;
+  padding-right: .2em;
   text-decoration: none !important;
+  float: left;
 }
 
 h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .headerlink, h5:hover .headerlink, h6:hover .headerlink {
@@ -254,7 +235,5 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 pre {
-  background-color: transparent;
-  padding: 0;
-  border-radius: 5px;
+  background-color: #2b2b2b;
 }
