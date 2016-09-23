@@ -19,9 +19,20 @@ You can find installation instructions at
 
 #### Installation using composer
 
+##### Bleeding Edge
+We try our best to commit well tested and stable commits to this branch and every commit is already unit tested.
+If you want to get always bleeding edge version use this:
+```bash
+composer require moloquent/moloquent:dev-master
+```
+
+
+##### Stable
 ```bash
 composer require moloquent/moloquent
 ```
+
+
 
 #### For Laravel >= 5.0
 
@@ -134,7 +145,8 @@ If you want to use MongoDB to handle failed jobs, change the database in `config
 ```
 
 Passport
----------
+--------
+**dev-master only**
 In order to use laravel passport with your models, add `PassportServiceProvider` service provider in `config/app.php`: 
 
 ```php
