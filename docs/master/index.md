@@ -15,8 +15,7 @@ Installation
 
 Make sure you have the MongoDB PHP driver installed.
 You can find installation instructions at 
-[http://php.net/manual/en/mongodb.installation.php](http://php.net/manual/en/mongodb.installation.php).
-
+[http://php.net/manual/en/mongo.installation.php](http://php.net/manual/en/mongo.installation.php).
 #### Installation using composer
 
 ##### Bleeding Edge
