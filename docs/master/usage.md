@@ -529,7 +529,7 @@ class Message extends Eloquent {
 These expressions will be injected directly into the query.
 
 ```php
-User::whereRaw(['age' => array('$gt' => 30, '$lt' => 40)])->get();
+User::whereRaw(['age' => ['$gt' => 30, '$lt' => 40]])->get();
 ```
 
 You can also perform raw expressions on the internal MongoCollection object. If this is executed on the model class, it will return a collection of models. If this is executed on the query builder, it will return the original response.
@@ -551,7 +551,7 @@ $cursor = DB::collection('users')->raw(function($collection)
 Optional: if you don't pass a closure to the raw method, the internal MongoCollection object will be accessible:
 
 ```php
-$model = User::raw()->findOne(['age' => array('$lt' => 18]));
+$model = User::raw()->findOne(['age' => ['$lt' => 18]]);
 ```
 
 The internal MongoClient and MongoDB objects can be accessed like this:
@@ -585,7 +585,7 @@ DB::collection('users')->where('name', 'John')
 You can apply projections to your queries using the `project` method.
 
 ```php
-DB::collection('items')->project(['tags' => array('$slice' => 1]))->get();
+DB::collection('items')->project(['tags' => ['$slice' => 1]])->get();
 ```
 
 #### Projections with Pagination
